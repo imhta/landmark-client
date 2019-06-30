@@ -17,14 +17,6 @@ var query = `query {
           }
           catLocType
         }
-        slides{
-            id
-            title
-            img{
-                id
-                handle
-            }
-        }
         clients{
           id
           name
@@ -42,7 +34,7 @@ var query = `query {
           handle
         }
       }
-      slides{
+      firstSlides{
         title
         img{
           id
@@ -64,12 +56,12 @@ fetch('https://api-apeast.graphcms.com/v1/cjs3ei2im0dqf01g7re7ifxb7/master/graph
   })
   .then(r => r.json())
   .then(res => {
-    // console.log(res);
-    createLogo(res.data.configs);
-    createSlides(res.data.slides);
-    createPortfolio(res.data.categories);
-    createClients(res.data.clients);
-    createServices(res.data.services);
+    console.log(res);
+
+    createSlides(res.data.firstSlides);
+
+    // createClients(res.data.clients);
+
   });
 
 
@@ -149,21 +141,23 @@ function createServices(services) {
 
 }
 
+
 function createSlides(slides) {
   for (i = 0; i < slides.length; i++) {
-    $(".carousel-inner").append(`
-    <div class="carousel-item ${i === 0 ? 'active' : ''}">
-      <div class="carousel-background"><img src="https://media.graphcms.com/${slides[i].img.handle}" width="100%" height="100%" galt=""></div>
-      <div class="carousel-container">
-        <div class="carousel-content">
-          <h2>${slides[i].title}</h2>
-          
-            <a href="https://api.whatsapp.com/send?phone=919444976665&text=I%20want%20to%20know%20more%20about%20your%20services" class="btn-get-started scrollto">Chat Now</a>
-        </div>
-      </div>
-      </div>
+    $("#carousel-inner").append(`
+    <div class="carousel-item ${i === 0 ? 'active' : ''}" 
+         style="
+                background-image: url(https://media.graphcms.com/${slides[i].img.handle});
+                background-size: cover;
+                width: 100%;
+                height:500px ">
+    <div>
 
     `);
+
+    $("#carousel-indicators").append(`
+    <li data-target="#carousel" data-slide-to="${i}" class="${i === 0 ? 'active' : ''}"></li>
+    `)
   }
 }
 
