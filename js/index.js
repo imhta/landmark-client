@@ -1,3 +1,13 @@
+$('.client-carousel').flickity({
+  imagesLoaded: true,
+  percentPosition: false,
+  groupCells: true,
+  autoPlay: true,
+});
+
+
+var $clientCarousel =   $('.client-carousel').flickity();
+
 var query = `query {
       configs(where: {
       type: "logo"
@@ -60,7 +70,7 @@ fetch('https://api-apeast.graphcms.com/v1/cjs3ei2im0dqf01g7re7ifxb7/master/graph
 
     createSlides(res.data.firstSlides);
 
-    // createClients(res.data.clients);
+    createClients(res.data.clients);
 
   });
 
@@ -118,8 +128,12 @@ function createPortfolio(cats) {
 
 function createClients(clients) {
   for (i = 0; i < clients.length; i++) {
-
-    $(".clients-carousel").append(`<img src="https://media.graphcms.com/${clients[i].logo.handle}" height="150px">`);
+    var $cellEle = $(`
+    <div class="carousel-cell">
+    <img  src="https://media.graphcms.com/${clients[i].logo.handle}" style="height: 80px;" alt="" />
+  </div>
+    `)
+    $clientCarousel.flickity('append', $cellEle);
 
   }
 }
@@ -172,25 +186,3 @@ function removeDups(arr) {
 }
 
 
-
-// Porfolio isotope and filter
-var portfolioIsotope = $('.portfolio-container').isotope({
-  itemSelector: '.portfolio-item',
-  layoutMode: 'fitRows'
-});
-
-$('#portfolio-flters li').on('click', function () {
-  $("#portfolio-flters li").removeClass('filter-active');
-  $(this).addClass('filter-active');
-  portfolioIsotope.isotope({
-    filter: $(this).data('filter')
-  });
-
-});
-$("#portfolio-flters").on("click", ".filter", function () {
-  $("#portfolio-flters li").removeClass('filter-active');
-  $(this).addClass('filter-active');
-  portfolioIsotope.isotope({
-    filter: $(this).data('filter')
-  });
-});
