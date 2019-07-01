@@ -138,12 +138,16 @@ function createSideBanner(config) {
   .attr('style',
     `max-width:100%;
     max-height:100%;
+    min-width: 250px;
+    min-height: 300px;
     background-image: url(https://media.graphcms.com/${config[3].brandImg.handle});
     background-size: cover; `);
 
     $("#final-home-banner").attr('style',
     `max-width:100%;
     max-height:100%;
+    min-width: 340px;
+    min-height: 400px;
     margin: 10px;
     background-image: url(https://media.graphcms.com/${config[4].brandImg.handle});
     background-size: cover; `);
