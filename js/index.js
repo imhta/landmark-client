@@ -149,8 +149,8 @@ function createSecondSlide(slides) {
 function createSideBanner(config) {
   $("#home-side-banner")
   .attr('style',
-    `max-width:100%;
-    max-height:100%;
+    `width:100%;
+    height:100%;
     min-width: 250px;
     min-height: 300px;
     background-image: url(https://media.graphcms.com/${config[3].brandImg.handle});
