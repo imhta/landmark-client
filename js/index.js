@@ -1,3 +1,16 @@
+var slider_options = { 
+  $AutoPlay: 1,
+  $ArrowNavigatorOptions: {
+    $Class: $JssorArrowNavigator$,
+    $ChanceToShow: 2
+  },
+  $ThumbnailNavigatorOptions: {
+    $Class: $JssorThumbnailNavigator$,
+    $ChanceToShow: 2
+  }
+ };
+var jssor_slider_instance = new $JssorSlider$("jssor_1", slider_options);
+
 $('.client-carousel').flickity({
   imagesLoaded: true,
   percentPosition: false,
@@ -120,17 +133,17 @@ function createSlides(slides) {
 
 
 function createSecondSlide(slides) {
+  var slidesHtml = "";
   for (i = 0; i < slides.length; i++) {
-    $("#second-slide-wrapper").append(`
-
+    slidesHtml += `
     <div>
     <img data-u="image" src="https://media.graphcms.com/${slides[i].img.handle}" />
-    <img data-u="thumb" src="https://media.graphcms.com/${slides[i].img.handle}" style="height: 90px; width:190px"/>
+    <img data-u="thumb" src="https://media.graphcms.com/resize=w:190,h:90,fit:crop/${slides[i].img.handle}"/>
   </div>
-
-    `);
-
+    `
+   
   }
+  jssor_slider_instance.$AppendSlides(slidesHtml, i);
 }
 
 function createSideBanner(config) {
