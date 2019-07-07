@@ -289,15 +289,11 @@
   padding-top: 40px;
 }
 .grid {
-  display: flex;
-  min-height: 200px;
-  height: 100% !important;
-  position: static !important;
-  flex-wrap: wrap;
   padding: 20px 0px;
 }
 .grid-item {
   margin: 10px;
+  float: left;
 }
 .grid-item .card {
   border: none;
@@ -310,3 +306,4 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+

@@ -9,12 +9,7 @@ var $clientCarousel = $(".client-carousel").flickity({
   groupCells: true
 });
 var $grid = $('.grid').isotope({
-  // options
-  layoutMode: 'fitRows',
   itemSelector: '.grid-item',
-  masonry: {
-    columnWidth: 50
-  }
 });
 var cat = getUrlVars().cat;
 $(`#${cat}`).addClass('active');
@@ -62,7 +57,8 @@ fetch(
     createCatElements(res.data.categories);
     createClients(res.data.clients);
 }).then(() => {
-  $("#v-pills-tab .nav-link").on("click", function(){
+  $("#v-pills-tab a").on("click", function(e){
+    e.preventDefault();
     var filterValue = $(this).attr('data-filter');
     $grid.isotope({ filter: filterValue });
     console.log(filterValue);
