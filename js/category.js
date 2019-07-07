@@ -10,6 +10,7 @@ var $clientCarousel = $(".client-carousel").flickity({
 });
 var $grid = $('.grid').isotope({
   itemSelector: '.grid-item',
+  layoutMode: 'fitRows'
 });
 var cat = getUrlVars().cat;
 $(`#${cat}`).addClass('active');
@@ -57,11 +58,12 @@ fetch(
     createCatElements(res.data.categories);
     createClients(res.data.clients);
 }).then(() => {
-  $("#v-pills-tab a").on("click", function(e){
-    e.preventDefault();
+  $("#v-pills-tab a").on("click",function(){
     var filterValue = $(this).attr('data-filter');
     $grid.isotope({ filter: filterValue });
+    $grid.isotope('layout');
     console.log(filterValue);
+
 });
 });
 
@@ -120,5 +122,5 @@ function createCatElements(cats) {
     <a class="nav-link" id="${ele}" data-toggle="tab" href="#${ele}" role="tab"  data-filter=".${ele}" >${ele.replace(/_/g, ' ')}</a>
 
     `);
-  })
+  });
 }
