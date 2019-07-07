@@ -1,13 +1,15 @@
 
-  $('.client-carousel').flickity({
+  var $clientCarousel =  $('.client-carousel').flickity({
     imagesLoaded: true,
     percentPosition: false,
-    groupCells: true,
     autoPlay: true,
+    pauseAutoPlayOnHover: false,
+    hash: true,
+    groupCells: true
   });
   
   
-  var $clientCarousel =   $('.client-carousel').flickity();
+
   
   var query = `query {
         configs(where: {
@@ -64,20 +66,19 @@
     });
   
 
-  
-  function createClients(clients) {
-    for (i = 0; i < clients.length; i++) {
-      var $cellEle = $(`
-      <div class="carousel-cell">
-      <img  src="https://media.graphcms.com/${clients[i].logo.handle}" style="height: 80px;" alt="" />
-    </div>
-      `)
-      $clientCarousel.flickity('append', $cellEle);
-  
+    function createClients(clients) {
+      var client = "";
+      for (i = 0; i < clients.length; i++) {
+        client += `
+        <div class="carousel-cell" id="carousel-cell${i}" style="height: 80px; width: 200px; background-image: url(https://media.graphcms.com/${
+          clients[i].logo.handle
+        }); background-size: contain; background-position: center; background-repeat: no-repeat" >
+      </div>
+        `;
+      }
+      $clientCarousel.flickity("append", $(client));
+      $clientCarousel.flickity("reloadCells");
     }
-  }
-  
-  
   
   
   function createSlides(slides) {

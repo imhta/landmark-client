@@ -215,9 +215,10 @@
     flex-direction: column;
     width: 100%;
     height: 150px;
-    background-color: rgb(199, 199, 199);
     text-align: center;
     justify-items: center;
+    border-top: solid 1px rgba(51, 51, 51, 0.151);
+    margin: 20px 0px 0px 0px;
 }
 
 .l-customers h5{
@@ -227,9 +228,6 @@
   padding: 10px;
 }
 
-.l-customers .client-carousel .carousel-cell img{
-  margin: 0px 10px;
-}
 
 .l-contact{
     display: flex;
@@ -237,7 +235,7 @@
     height: 90px;
     padding-top: 20px;
     padding-bottom: 20px;
-    margin-top: 60px;
+    margin-top: 30px;
     margin-bottom: 0px;
     background-color: whitesmoke;
     justify-content: center;
