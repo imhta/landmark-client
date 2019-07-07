@@ -12,15 +12,7 @@
 
   
   var query = `query {
-        configs(where: {
-        type: "banner"
-        }){
-            id
-            brandImg{
-              handle
-            }
-          }
-  
+
           clients{
             id
             name
@@ -36,13 +28,7 @@
             handle
           }
         }
-        secondSlides{
-          title
-          img{
-            id
-            handle
-          }
-        }
+
     
     }
     `;
