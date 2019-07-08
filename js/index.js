@@ -78,7 +78,7 @@ fetch(
     createSecondSlide(res.data.secondSlides);
     createSideBanner(res.data.configs);
     createClients(res.data.clients);
-  });
+  }).catch((e) => alert("check your internet connection"));
 
 //
 function createTopBanner(config) {

@@ -49,7 +49,7 @@
       createSlides(res.data.firstSlides);
       createClients(res.data.clients);
     
-    });
+    }).catch((e) => alert("check your internet connection"));
   
 
     function createClients(clients) {

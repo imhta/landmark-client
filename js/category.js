@@ -1,4 +1,3 @@
-
 // init client carousel
 var $clientCarousel = $(".client-carousel").flickity({
   imagesLoaded: true,
@@ -8,12 +7,9 @@ var $clientCarousel = $(".client-carousel").flickity({
   hash: true,
   groupCells: true
 });
-var $grid = $('.grid').isotope({
-  itemSelector: '.grid-item',
-  layoutMode: 'fitRows'
-});
+
 var cat = getUrlVars().cat;
-$(`#${cat}`).addClass('active');
+$(`#${cat}`).addClass("active");
 var query = `query {
 
           categories(where: {catLocType: ${cat.toUpperCase()}}){
@@ -57,15 +53,8 @@ fetch(
     console.log(res);
     createCatElements(res.data.categories);
     createClients(res.data.clients);
-}).then(() => {
-  $("#v-pills-tab a").on("click",function(){
-    var filterValue = $(this).attr('data-filter');
-    $grid.isotope({ filter: filterValue });
-    $grid.isotope('layout');
-    console.log(filterValue);
+  }).catch((e) => alert("check your internet connection"));
 
-});
-});
 
 function getUrlVars() {
   var vars = [],
@@ -94,15 +83,16 @@ function createClients(clients) {
   $clientCarousel.flickity("reloadCells");
 }
 
-
 function createCatElements(cats) {
   var catsEle = "";
   var catTypes = [...new Set(cats.map(ele => ele.catType))];
-  for(var i = 0; i < cats.length; i++){
+  for (var i = 0; i < cats.length; i++) {
     catsEle += `
         <div class="grid-item ${cats[i].catType} ${cats[i].catLocType}"  >
           <div class="card">
-          <div class="card-img-top" style="background-image: url('https://media.graphcms.com/${cats[i].img.handle}');
+          <div class="card-img-top" style="background-image: url('https://media.graphcms.com/${
+            cats[i].img.handle
+          }');
           " alt="${cats[i].title}"></div>
           <div class="card-footer h5 text-center">
           ${cats[i].title}
@@ -110,17 +100,42 @@ function createCatElements(cats) {
       </div>
       </div>
         `;
-
   }
-  $grid.append( $(catsEle) )
-  .isotope( 'appended', $(cats) ).isotope('layout');
+  $(".tab-pane#all").append($(catsEle));
 
-  
   catTypes.forEach(ele => {
-    $('#v-pills-tab').append(`
+    $("#v-pills-tab").append(`
+    <a class="nav-link" id="${ele}-tab" data-toggle="pill" href="#${ele}" role="tab" aria-controls="#${ele}" aria-selected="true">${ele.replace(
+      /_/g,
+      " "
+    )}</a>
+    `);
 
-    <a class="nav-link" id="${ele}" data-toggle="tab" href="#${ele}" role="tab"  data-filter=".${ele}" >${ele.replace(/_/g, ' ')}</a>
+    $("#v-pills-tabContent").append(`
+    <div class="tab-pane fade show" id="${ele}" role="tabpanel" aria-labelledby="${ele}-tab"></div>
+    `);
+    paintCat(cats,ele);
+  });
 
+
+}
+
+function paintCat(cats, cat) {
+  catTypeCats = cats.filter((i) => i.catType === cat);
+  console.log(cats)
+  catTypeCats.forEach(c => {
+    $(`.tab-pane#${c.catType}`).append(`
+    <div class="grid-item ${c.catType} ${c.catLocType}"  >
+    <div class="card">
+    <div class="card-img-top" style="background-image: url('https://media.graphcms.com/${
+      c.img.handle
+    }');
+    " alt="${c.title}"></div>
+    <div class="card-footer h5 text-center">
+    ${c.title}
+  </div>
+</div>
+</div>
     `);
   });
 }
