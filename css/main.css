@@ -307,3 +307,12 @@
   background-repeat: no-repeat;
 }
 
+.list-group .active, #v-pills-tab .nav-link.active{
+  background-color: #ec4225;
+  border: #000;
+  color: white;
+
+}
+#v-pills-tab .nav-link {
+  color: black;
+}

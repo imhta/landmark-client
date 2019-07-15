@@ -29,6 +29,13 @@
           }
         }
 
+        facilitieses{
+          title
+          img{
+            id
+            handle
+          }
+        }
     
     }
     `;
@@ -45,9 +52,10 @@
     .then(r => r.json())
     .then(res => {
       console.log(res);
-  
+
       createSlides(res.data.firstSlides);
       createClients(res.data.clients);
+      createFacilities(res.data.facilitieses);
     
     }).catch((e) => alert("check your internet connection"));
   
@@ -86,4 +94,18 @@
     }
   }
   
-  
+  function createFacilities(facilities) {
+    for (i = 0; i < facilities.length; i++) {
+      $(".facilities").append(`
+      <div class="col-md-4 p-1">
+      <div class="card">
+          <img class="card-img-top" src="https://media.graphcms.com/${facilities[i].img.handle}" alt="Customer service">
+          <div class="card-footer">
+          <h6 class="text-center" >${facilities[i].title.toUpperCase()}</h6>
+            </div>
+            </div>
+      </div>
+      `);
+
+    }
+  }
