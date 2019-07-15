@@ -10,6 +10,7 @@ var $clientCarousel = $(".client-carousel").flickity({
 
 var cat = getUrlVars().cat;
 $(`#${cat}`).addClass("active");
+
 var query = `query {
           firstSlides{
             title
@@ -56,8 +57,8 @@ fetch(
 )
   .then(r => r.json())
   .then(res => {
-    console.log(res);
     $('#led-section').hide();
+    console.log(res);
     createCatElements(res.data.categories);
     createClients(res.data.clients);
     if (cat === 'led') {
@@ -66,7 +67,11 @@ fetch(
       $('#v-pills-tab').hide();
     } else if (cat === 'print'){
       $('#v-pills-tab').hide();
+    } else{
+      $('#v-pills-tab').show();
     }
+    $( "main" ).removeClass( "d-none" );
+
   }).catch((e) => alert("check your internet connection"));
 
 
