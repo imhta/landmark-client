@@ -11,7 +11,13 @@ var $clientCarousel = $(".client-carousel").flickity({
 var cat = getUrlVars().cat;
 $(`#${cat}`).addClass("active");
 var query = `query {
-
+          firstSlides{
+            title
+            img{
+              id
+              handle
+            }
+          }
           categories(where: {catLocType: ${cat.toUpperCase()}}){
             id
             catType
@@ -51,8 +57,16 @@ fetch(
   .then(r => r.json())
   .then(res => {
     console.log(res);
+    $('#led-section').hide();
     createCatElements(res.data.categories);
     createClients(res.data.clients);
+    if (cat === 'led') {
+      createSlides(res.data.firstSlides);
+      $('#led-section').show();
+      $('#v-pills-tab').hide();
+    } else if (cat === 'print'){
+      $('#v-pills-tab').hide();
+    }
   }).catch((e) => alert("check your internet connection"));
 
 
@@ -69,6 +83,26 @@ function getUrlVars() {
   }
   return vars;
 }
+
+function createSlides(slides) {
+  for (i = 0; i < slides.length; i++) {
+    $("#carousel-inner").append(`
+    <div class="carousel-item ${i === 0 ? 'active' : ''}" 
+         style="
+                background-image: url(https://media.graphcms.com/${slides[i].img.handle});
+                background-size: cover;
+                width: 100%;
+                height:500px ">
+    <div>
+
+    `);
+
+    $("#carousel-indicators").append(`
+    <li data-target="#carousel" data-slide-to="${i}" class="${i === 0 ? 'active' : ''}"></li>
+    `)
+  }
+}
+
 function createClients(clients) {
   var client = "";
   for (i = 0; i < clients.length; i++) {
@@ -139,3 +173,4 @@ function paintCat(cats, cat) {
     `);
   });
 }
+
